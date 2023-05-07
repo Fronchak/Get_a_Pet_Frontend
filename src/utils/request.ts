@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import RegisterInputs from '../types/RegisterInput';
 import LoginInputs from '../types/LoginInputs';
 
-const BASE_URL = 'http://localhost:5000';
+export const BASE_URL = 'http://localhost:5000';
 
 export const requestBackendRegister = (regitsterInputs: RegisterInputs) => {
   return axios({
