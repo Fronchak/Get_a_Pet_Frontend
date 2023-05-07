@@ -21,4 +21,21 @@ nav img {
 
 nav.navbar a {
   color: var(--primary-color);
+  font-size: 1.2em;
+  transition: 0.8s;
+}
+
+nav.navbar a.nav-link:hover,
+nav.navbar a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+nav.navbar a.active.nav-link {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+#user-link {
+  text-decoration: none;
 }

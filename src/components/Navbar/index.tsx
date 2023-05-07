@@ -1,8 +1,26 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import LogoImage from '../../assets/imgs/logo.png';
 import './styles.css';
+import useAuthContext from '../../hooks/useAuthContext';
+import { removeAuthData } from '../../utils/storage';
 
 const Navbar = () => {
+
+  const { authContextData, setAuthContextData } = useAuthContext();
+  const navigate = useNavigate();
+  console.log('A navbar renderizou');
+
+  const handleLogout = (event: React.MouseEvent) => {
+    event.preventDefault();
+    removeAuthData();
+    setAuthContextData({
+      authenticated: false
+    });
+    navigate('/auth/register', {
+      replace: true
+    });
+  }
+
   return (
     <nav className="navbar navbar-expand-lg secondary-bg-color" data-bs-theme="dark">
     <div className="container">
@@ -19,16 +37,29 @@ const Navbar = () => {
             <NavLink className="nav-link" aria-current="page" to="/">Home</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="animes">Animes</NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="admin">Admin</NavLink>
+            <NavLink className="nav-link" to="/pets">Pets</NavLink>
           </li>
         </ul>
         <ul className="navbar-nav mb-2 mb-lg-0">
-          <li className="nav-item">
-            <NavLink className="nav-link" to="auth/login">Login</NavLink>
-          </li>
+          { authContextData.authenticated ?
+            <>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="#" id="user-link">{ authContextData.tokenData?.username }</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="auth/logout" onClick={handleLogout}>Logout</NavLink>
+              </li>
+            </>
+            :
+            <>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="auth/login">Login</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="auth/register">Register</NavLink>
+              </li>
+            </>
+          }
         </ul>
       </div>
     </div>

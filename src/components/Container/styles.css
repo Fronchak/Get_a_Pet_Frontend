@@ -1,0 +1,15 @@
+#main-container {
+  min-height: 50vh;
+}
+
+@media (min-width: 768px) {
+  #main-container {
+    min-height: 75vh;
+  }
+}
+
+@media (min-width: 1200px) {
+  #main-container {
+    min-height: 85vh;
+  }
+}

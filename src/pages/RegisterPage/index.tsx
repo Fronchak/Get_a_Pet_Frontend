@@ -1,28 +1,43 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "../../components/Container";
+import { toast } from "react-toastify";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
+import RegisterInputs, { RegisterInputsKeys } from "../../types/RegisterInput";
+import { requestBackendRegister } from "../../utils/request";
+import TokenResponse from "../../types/TokenResponse";
+import { saveAuthData } from "../../utils/storage";
+import useAuthContext from "../../hooks/useAuthContext";
+import { getTokenData } from "../../utils/auth";
 
-type Inputs = {
-  name: string;
-  phone: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
 
-type InputsKeys = keyof Inputs;
 
 const RegisterPage = () => {
 
-  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+  const { register, handleSubmit, formState: { errors } } = useForm<RegisterInputs>();
   const [wasSubmit, setWasSubmit] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const { setAuthContextData } = useAuthContext();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<RegisterInputs> = async (data) => {
     console.log(data);
+    try {
+      const response = await requestBackendRegister(data);
+      console.log(response.data);
+      saveAuthData(response.data);
+      setAuthContextData({
+        authenticated: true,
+        tokenData: getTokenData()
+      });
+      toast.success('Account created with success');
+      navigate('/');
+    }
+    catch(e) {
+      console.error(e);
+    }
   }
 
-  const getInputClassName = (fieldName: InputsKeys): string => {
+  const getInputClassName = (fieldName: RegisterInputsKeys): string => {
     return wasSubmit ? ((errors[fieldName]?.message) ? 'is-invalid' : 'is-valid') : '';
   }
 
