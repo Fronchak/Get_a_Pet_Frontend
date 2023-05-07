@@ -5,12 +5,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
 import RegisterInputs, { RegisterInputsKeys } from "../../types/RegisterInput";
 import { requestBackendRegister } from "../../utils/request";
-import TokenResponse from "../../types/TokenResponse";
 import { saveAuthData } from "../../utils/storage";
 import useAuthContext from "../../hooks/useAuthContext";
 import { getTokenData } from "../../utils/auth";
-
-
 
 const RegisterPage = () => {
 
@@ -20,10 +17,8 @@ const RegisterPage = () => {
   const { setAuthContextData } = useAuthContext();
 
   const onSubmit: SubmitHandler<RegisterInputs> = async (data) => {
-    console.log(data);
     try {
       const response = await requestBackendRegister(data);
-      console.log(response.data);
       saveAuthData(response.data);
       setAuthContextData({
         authenticated: true,
@@ -34,6 +29,7 @@ const RegisterPage = () => {
     }
     catch(e) {
       console.error(e);
+      toast.error('Someting went wrong');
     }
   }
 

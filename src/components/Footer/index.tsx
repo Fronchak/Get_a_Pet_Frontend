@@ -1,6 +1,9 @@
 import './styles.css';
 
 const Footer = () => {
+
+  console.log('Footer renderizou');
+
   return (
     <footer id="footer" className="p-5">
       <div className="container">

@@ -6,9 +6,9 @@ import { removeAuthData } from '../../utils/storage';
 
 const Navbar = () => {
 
+  console.log('A navbar renderizou');
   const { authContextData, setAuthContextData } = useAuthContext();
   const navigate = useNavigate();
-  console.log('A navbar renderizou');
 
   const handleLogout = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -16,7 +16,7 @@ const Navbar = () => {
     setAuthContextData({
       authenticated: false
     });
-    navigate('/auth/register', {
+    navigate('/auth/login', {
       replace: true
     });
   }

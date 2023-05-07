@@ -15,17 +15,19 @@ import AuthContext from './context/AuthContext';
 import HomePage from './pages/HomePage';
 import PetsPage from './pages/PetsPage';
 import { getTokenData } from './utils/auth';
+import LoginPage from './pages/LoginPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route
-      path="/"
       element={ <Root /> }
+      path="/"
       errorElement={ <ErrorPage /> }
     >
       <Route element={ <HomePage /> } index />
       <Route element={ <PetsPage /> } path="pets" />
-      <Route path="auth/register" element={ <RegisterPage /> } />
+      <Route element={ <RegisterPage /> } path="auth/register"/>
+      <Route element={ <LoginPage /> } path="auth/login" />
     </Route>
   )
 );
@@ -35,7 +37,7 @@ const App = () => {
   const [authContextData, setAuthContextData] = useState<AuthContextData>({
     authenticated: false
   });
-
+/*
   useEffect(() => {
     console.log('Chamou o use effect');
     const tokenData = getTokenData();
@@ -46,7 +48,7 @@ const App = () => {
       });
     }
   }, []);
-
+*/
   return (
     <AuthContext.Provider value={{ authContextData, setAuthContextData }} >
       <RouterProvider router={ router } />
