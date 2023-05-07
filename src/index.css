@@ -1,0 +1,63 @@
+:root {
+  --primary-color: #16479D;
+  --secondary-color: #FFD400;
+  --thirdy-color: #25B456;
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+.primary-color {
+  color: var(--primary-color);
+}
+
+.secondary-color {
+  color: var(--secondary-color);
+}
+
+.secondary-bg-color {
+  background-color: var(--secondary-color);
+}
+
+h1 {
+  font-size: 2.1em;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  background-color: #FFF;
+  border-radius: 15px;
+}
+
+.my-btn-primary {
+  border-radius: 8px;
+  background-color: var(--thirdy-color);
+  color: #FFF;
+  border: none;
+  min-width: 100px;
+  min-height: 2.5em;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bold;
+  transition: 0.5s;
+}
+
+.my-btn-primary:hover {
+  background-color: #1C8A42;
+}
+
+.form-container a {
+  text-decoration: none;
+}
+
+.form-container a:hover {
+  text-decoration: underline;
+}
+
+.invalid-feedback {
+  display: block;
+}
