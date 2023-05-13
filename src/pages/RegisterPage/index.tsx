@@ -11,12 +11,19 @@ import { getTokenData } from "../../utils/auth";
 
 const RegisterPage = () => {
 
-  const { register, handleSubmit, formState: { errors } } = useForm<RegisterInputs>();
+  const { register, handleSubmit, formState: { errors }, setError } = useForm<RegisterInputs>();
   const [wasSubmit, setWasSubmit] = useState<boolean>(false);
   const navigate = useNavigate();
   const { setAuthContextData } = useAuthContext();
 
   const onSubmit: SubmitHandler<RegisterInputs> = async (data) => {
+    const password = data.password;
+    const confirmPassword = data.confirmPassword;
+    if(password !== confirmPassword) {
+      setError('password', { message: 'Password must be the same' });
+      setError('confirmPassword', { message: 'Password must be the same' });
+      return;
+    }
     try {
       const response = await requestBackendRegister(data);
       saveAuthData(response.data);
@@ -111,7 +118,7 @@ const RegisterPage = () => {
                   value: 6,
                   message: 'Password should have at least 6 characteres'
                 },
-                validate: (value, formValue) =>  (value === formValue.confirmPassword) || 'Passwords must be the same'
+                //validate: (value, formValue) =>  (value === formValue.confirmPassword) || 'Passwords must be the same'
               })}
               type="password"
               name="password"
@@ -132,7 +139,7 @@ const RegisterPage = () => {
                   value: 6,
                   message: 'Confirm password should have at least 6 characteres'
                 },
-                validate: (value, formValue) =>  (value === formValue.password) || 'Passwords must be the same'
+                //validate: (value, formValue) =>  (value === formValue.password) || 'Passwords must be the same'
               })}
               type="password"
               name="confirmPassword"

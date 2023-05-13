@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { requestBackendLogin } from '../../utils/request';
 import { saveAuthData } from '../../utils/storage';
 import { getTokenData } from '../../utils/auth';
+import TokenResponse from '../../types/TokenResponse';
 
 
 const LoginPage = () => {
@@ -30,9 +31,11 @@ const LoginPage = () => {
       setIsLoading(true);
       const response = await requestBackendLogin(data);
       setIsLoading(false);
-      saveAuthData(response.data);
+      const tokenResponse = response.data as TokenResponse;
+      saveAuthData(tokenResponse);
       setAuthContextData({
         authenticated: true,
+        token: tokenResponse.access_token,
         tokenData: getTokenData()
       });
       toast.success('Login with success');

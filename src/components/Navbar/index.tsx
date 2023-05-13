@@ -47,6 +47,9 @@ const Navbar = () => {
             <ul className="navbar-nav mb-2 mb-lg-0">
               { authContextData.authenticated ?
                 <>
+                  <li>
+                    <NavLink className="nav-link" to="/user/my-pets">My pets</NavLink>
+                  </li>
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/user/profile" id="user-link">{ authContextData.tokenData?.username }</NavLink>
                   </li>

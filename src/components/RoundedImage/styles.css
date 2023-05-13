@@ -1,0 +1,20 @@
+.rounded_image {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+}
+
+.rounded_image.px75 {
+  width: 75px;
+  height: 75px;
+}
+
+.rounded_image.p100 {
+  width: 75px;
+  height: 75px;
+}
+
+.rounded_image.p150 {
+  width: 75px;
+  height: 75px;
+}
